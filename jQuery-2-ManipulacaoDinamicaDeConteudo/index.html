@@ -87,28 +87,33 @@
 	<script src="jquery-2.0.3.min.js"></script>
 	<script>
 
-		var removeItem = function(event) {
-			event.preventDefault();
-			var self = $(this);
-			self.closest('tr').remove();
-			var atual = parseInt($('#quantidade-de-itens').text());
-			var novaQuantidade = atual - 1;
-			$('#quantidade-de-itens').text(novaQuantidade);
-		};
-		var aposInicializado = function() {
-			var itens = $('.item-total');
-			var total = 0;
-			for (var i = 0; i < itens.length; i++) {
-				var item = $(itens[i]);
-				var valor = parseFloat(item.text());
-				total  = total + valor;
-			}
-			$('#valor-total').text(total);
-			$('#quantidade-de-itens').text(itens.length);
-			$('.remove-item').click(removeItem);
-		};
+	var atualizaDados = function() {
+		var itens = $('.item-total');
+		var total = 0;
+		for (var i = 0; i < itens.length; i++) {
+			var item = $(itens[i]);
+			var valor = parseFloat(item.text());
+			total  = total + valor;
+		}
+		$('#valor-total').text(total);
+		$('#quantidade-de-itens').text(itens.length);
+	};
 
-		$(aposInicializado);
+	var removeItem = function(event) {
+		event.preventDefault();
+
+		var self = $(this);
+		self.closest('tr').remove();
+
+		atualizaDados();
+	};
+
+	var aposInicializado = function() {
+		atualizaDados();
+		$('.remove-item').click(removeItem);
+	};
+
+	$(aposInicializado);
 	</script>
 </body>
 </html>
